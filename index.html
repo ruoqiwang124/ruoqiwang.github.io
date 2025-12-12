@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ruoqi Wang | Portfolio</title>
+  <meta name="description" content="Ruoqi Wang's portfolio: game design, narrative systems, engineering, and interactive projects."/>
+  <meta property="og:title" content="Ruoqi Wang | Portfolio"/>
+  <meta property="og:description" content="Game design, narrative systems, engineering, and interactive projects."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="assets/img/og-cover.svg"/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link" aria-label="Back to home">
+          <span class="brand-dot"></span>
+          <span class="brand-text">Ruoqi Wang</span>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn ghost" id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
+        <!-- Resume button removed -->
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Game Design • Narrative Systems • Engineering</p>
+          <h1>Playable systems with emotion, <br/> built as real prototypes.</h1>
+          <p class="lead">
+            Here are selected projects with videos, images, design notes, and code highlights.
+            Click <b>View details</b> on any project to open the full case study page.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn" href="#projects">View Projects</a>
+            <a class="btn ghost" href="project.html?id=four-years">Start here: Tide of Memory</a>
+          </div>
+
+          <div class="meta-row">
+            <div class="meta-pill">Unity • C#</div>
+            <div class="meta-pill">React</div>
+            <div class="meta-pill">Python</div>
+            <div class="meta-pill">Android</div>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Featured project">
+          <img class="hero-img" src="assets/img/lily.png" alt="Portfolio cover (placeholder)" />
+          <div class="hero-card-caption">
+            <div class="caption-title">Featured</div>
+            <div class="caption-sub">Tide of Memory — narrative runner prototype</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <p class="muted">Click a project card to view details. Supports video, image gallery, design notes, and code highlights.</p>
+        </div>
+
+        <div id="projectGrid" class="grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>About</h2>
+          <p class="muted">Replace this with a USC-focused bio if you want.</p>
+        </div>
+
+        <div class="about">
+          <div class="about-card">
+            <h3>What I do</h3>
+            <p>
+              I design and prototype interactive experiences where mechanics carry meaning. My work sits between
+              game design (core loops, progression, choice & consequence) and engineering (clean implementation,
+              tooling, and iteration speed).
+            </p>
+            <ul>
+              <li><b>Systems + narrative:</b> turning themes into playable structure (events, flags, pacing, persistence).</li>
+              <li><b>Prototyping:</b> building vertical slices that are easy to play, test, and explain.</li>
+              <li><b>UX for clarity:</b> readable state changes, feedback loops, and tutorial-friendly interactions.</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <h3>How I work</h3>
+            <p>
+              I like projects that reward careful iteration: define a clear player promise, build the smallest loop that proves it,
+              then refine pacing and readability through playtests. I’m especially interested in “narrative as a system”—
+              when story progression is earned through interaction rather than delivered as text alone.
+            </p>
+            <p>
+              My toolkit spans real-time gameplay prototyping (Unity/C#), interactive web visualization (React/TypeScript),
+              and pipeline-friendly scripting where it helps (Python). I’m comfortable wearing multiple hats—designing,
+              implementing, and polishing for presentation.
+            </p>
+            <p class="muted small">
+              I’ll keep adding demos, diagrams, and code highlights as projects evolve.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p class="muted">Feel free to reach out.</p>
+        </div>
+
+        <div class="contact">
+          <a class="contact-item" href="mailto:ruoqi4@illinois.edu">📧 ruoqi4@illinois.edu</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="muted small">© <span id="year"></span> Ruoqi Wang. Built with plain HTML/CSS/JS.</div>
+        <a class="muted small" href="#content">Back to top ↑</a>
+      </div>
+    </footer>
+  </main>
+
+  <script type="module" src="js/main.js?v=20251211"></script>
+</body>
+</html>

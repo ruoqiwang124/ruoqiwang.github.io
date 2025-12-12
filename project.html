@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project | Ruoqi Wang</title>
+  <meta name="description" content="Project case study page: video, gallery, systems design, and code highlights."/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link" aria-label="Back to home">
+          <span class="brand-dot"></span>
+          <span class="brand-text">Ruoqi Wang</span>
+        </a>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn ghost" id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
+        <!-- Resume button removed -->
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="section">
+      <div class="container">
+        <a class="back-link" href="index.html#projects">← Back to Projects</a>
+
+        <div id="projectHeader" class="project-header"></div>
+
+        <div class="project-layout">
+          <div class="project-main">
+            <div id="mediaBlock" class="media-block"></div>
+
+            <div class="card">
+              <h3>Project Summary</h3>
+              <div id="summaryBlock"></div>
+            </div>
+
+            <div class="card">
+              <h3>Design & Systems</h3>
+              <div id="systemsBlock"></div>
+            </div>
+
+            <div class="card">
+              <h3>Technical Implementation</h3>
+              <div id="techBlock"></div>
+            </div>
+
+            <div class="card">
+              <h3>Code Highlights</h3>
+              <p class="muted small">Tip: use short excerpts + explanation (10–25 lines per snippet).</p>
+              <div id="codeBlock"></div>
+            </div>
+          </div>
+
+          <aside class="project-side">
+            <div class="card sticky">
+              <h3>Links</h3>
+              <div id="linksBlock"></div>
+              <hr/>
+              <h3>Tags</h3>
+              <div id="tagsBlock" class="tags"></div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="spacer"></div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="muted small">© <span id="year"></span> Ruoqi Wang.</div>
+        <a class="muted small" href="index.html#projects">Back to project list ↑</a>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="lightbox" class="lightbox">
+    <button class="btn ghost lightbox-close" id="lightboxClose" type="button" aria-label="Close">✕</button>
+    <img id="lightboxImg" alt="Preview image" />
+    <p id="lightboxCaption" class="muted small"></p>
+  </dialog>
+
+  <script type="module" src="js/project.js"></script>
+</body>
+</html>
