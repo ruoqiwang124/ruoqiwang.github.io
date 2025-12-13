@@ -12,10 +12,7 @@ export const projects = [
       "A healing runner where each life lasts four years. Replays reset the player, but the world timeline persists—choices reshape NPC fates and leave keepsakes.",
 
     thumbnail: "assets/img/dialogue.png",
-    localVideo: {
-      src: "assets/video/demo_video.mp4",
-      type: "video/mp4"
-    },
+    videoEmbedUrl: "https://youtu.be/Dxe_dfzl5zA",
 
     gallery: [
       { src: "assets/img/view_a.png",caption: "spirit sheet"},
