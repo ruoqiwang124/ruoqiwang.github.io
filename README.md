@@ -32,6 +32,15 @@ This page highlights how interaction and structure work together, with annotated
 
 ---
 
+🧩 Project: LOCKDOWN: Break & Escape
+
+An asymmetric 1v3 board game prototype focused on a high-pressure chase loop, team rescues, and a Key-gated escape finale.
+The page includes core mechanics (capture → jail → rescue), action card design intent, and a playable rulebook.
+
+🔗 https://ruoqiwang124.github.io/ruoqiwang.github.io/project.html?id=lockdown-break-escape
+
+---
+
 ### 👤 About & Contact
 A brief introduction to my background, interests, and approach to interactive design and engineering, along with contact information.
 
