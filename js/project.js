@@ -1,361 +1,792 @@
-import { projects } from "../data/projects.js";
-import { setThemeFromStorage, toggleTheme, qs, el, getParam } from "./utils.js";
+// usc-portfolio-site/data/projects.js
+export const projects = [
+  {
+    id: "four-years",
+    title: "Tide of Memory",
+    badge: "Featured",
+    kicker: "Narrative runner • 4-year life loop • persistent world timeline",
+    role: "Game Designer • Programmer",
+    tools: ["Unity", "C#", "TextMeshPro"],
 
-setThemeFromStorage();
-qs("#themeToggle")?.addEventListener("click", toggleTheme);
-qs("#year").textContent = String(new Date().getFullYear());
+    shortDescription:
+      "Tide of Memory is a runner-driven healing narrative prototype where each “year” is a timed run.In the game Replays reset the player, but the world timeline persists—choices reshape NPC fates and leave keepsakes.",
 
-const id = getParam("id") || "";
-const project = projects.find((p) => p.id === id) || projects[0];
+    thumbnail: "assets/img/dialogue.png",
+    videoEmbedUrl: "https://www.youtube.com/embed/Dxe_dfzl5zA?si=m199Yu_c2XQjxoPK",
 
-document.title = `${project.title} | Ruoqi Wang`;
+    gallery: [
+      { src: "assets/img/view_a.png",caption: "spirit sheet"},
+      { src: "assets/img/map1.png", alt: "Macro loop", caption: "map design" },
+      { src: "assets/img/dialogue.png", alt: "Timeline", caption: "dialogue" },
+      { src: "assets/img/game_play.png", alt: "Runner", caption: "Runner scene" }
+    ],
 
-const header = qs("#projectHeader");
-const media = qs("#mediaBlock");
-const summary = qs("#summaryBlock");
-const systems = qs("#systemsBlock");
-const tech = qs("#techBlock");
-const code = qs("#codeBlock");
-const links = qs("#linksBlock");
-const tags = qs("#tagsBlock");
+    pageBlocks: [
+      {
+        type: "section",
+        title: "Logline",
+        body: [
+          {
+            type: "p",
+            text:
+              'Tide of Memory is a runner-driven healing narrative prototype where each “year” is a timed run. Players dodge hazards, collect stat-changing items, and trigger dialogue events—then return home to reflect and prepare. After four years, the ending is evaluated, while the world timeline persists across runs, allowing NPC stories to permanently conclude and leaving keepsakes as proof of shared moments.'
+          }
+        ]
+      },
 
-function safeArr(x) {
-  return Array.isArray(x) ? x : [];
-}
+        {
+          type: "section",
+          title: "Core Experience Goals",
+          body: [
+            {
+              type: "bullets",
+              items: [
+                "Rhythm of life: action → reflection → preparation, repeated four times as a “complete life”",
+                "Meaningful replay: restarting is not “retrying,” but witnessing what remains and what’s gone",
+                "Gentle consequence: choices shape NPC futures without punishing the player with hard failure"
+              ]
+            }
+          ]
+        },
 
-/**
- * ✅ 只隐藏“那张卡片”，不要用 closest('section')！
- * 因为 section 是整个页面外壳，会把 video/gallery 一起干掉。
- */
-function hideClosestCard(blockEl) {
-  if (!blockEl) return;
-  const card = blockEl.closest(".card");
-  if (card) {
-    card.style.display = "none";
-    return;
-  }
-  // fallback: 清空内容
-  blockEl.innerHTML = "";
-}
+      {
+        type: "details",
+        title: "Design Overview",
+        open: true,
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "World: a sea-folk world with many species; the protagonist is a highly intelligent octopus protected by an ocean government.",
+              "Theme: life is brief and ends inevitably, yet every connection and choice can still shine; legacy remains after absence.",
+              "Core fantasy: live a complete life in four years; make choices that shape NPC futures; replay new lives while the world remembers."
+            ]
+          }
+        ]
+      },
 
-function renderBlock(parent, block, ctx) {
-  if (!block || typeof block !== "object") return;
-  const type = block.type || "p";
+      {
+        type: "section",
+        title: "Game Flow",
+         body: [
+        {
+          type: "p",
+          text:
+            "Each run contains four timed “years”:"
+        },
+        {
+          type: "bullets",
+          items: [
+            "Run Phase: timed runner segment; collect items; trigger events",
+            "Year-End Summary: item counts + attribute/score changes",
+            "Home Hub (planned expansion): shop, gifts, relationship progression",
+            "Repeat until Year 4 → ending evaluation"
+          ]
+         },
+          { type: "image",
+            src: "assets/img/game_flow.png",
+            alt: "Tide of Memory macro loop diagram",
+          },
+        ]
+      },
 
-  if (type === "section") {
-    const sec = el("section", { class: "project-section" });
-    if (block.title) sec.appendChild(el("h2", { text: block.title }));
-    safeArr(block.body).forEach((b) => renderBlock(sec, b, ctx));
-    parent.appendChild(sec);
-    return;
-  }
 
-  if (type === "h2") {
-    parent.appendChild(el("h2", { text: block.text || "" }));
-    return;
-  }
-  if (type === "h3") {
-    parent.appendChild(el("h3", { text: block.text || "" }));
-    return;
-  }
-  if (type === "p") {
-    parent.appendChild(el("p", { text: block.text || "" }));
-    return;
-  }
+      {
+        type: "section",
+        title: "Timeline",
+        body: [
+      {
+        type: "p",
+        text:
+          "Unlike typical roguelike resets, the global world timeline does not restart:"
+      },
+      {
+        type: "bullets",
+        items: [
+          "NPCs can age, resolve their arcs, or permanently leave",
+          "Choices can create delayed consequences across runs",
+          "Keepsakes remain in the home as tangible narrative memory"
+        ]
+      },
+      { type: "image",
+            src: "assets/img/timeline.png",
+            alt: "Tide of Memory macro loop diagram",
+      }
+    ]
+      },
 
-  if (type === "bullets") {
-    const ul = el("ul");
-    safeArr(block.items).forEach((item) => ul.appendChild(el("li", { text: String(item) })));
-    parent.appendChild(ul);
-    return;
-  }
+      {
+        type: "details",
+        title: "NPC Arcs",
+        open: true,
+        body: [
+          { type: "h3", text: "Lily — Orchid Octopus (Friendship & Farewell)" },
+          {
+            type: "p",
+            text:
+              "Dreams of getting a land-travel visa to watch sunrise on the beach. If the player is short on money in Year 3, Lily offers support and invites the player. At the end of the first four-year limit, Lily passes away during the sunrise trip. High affinity grants a keepsake ticket displayed at home; Lily will not appear in later runs."
+          },
+          { type: "image",
+                src: "assets/img/lily.png",
+                alt: "character",
+          },
+          { type: "image",
+                src: "assets/img/sprite_sheet.png",
+                alt: "character",
+          },
 
-  if (type === "divider") {
-    parent.appendChild(el("div", { class: "hr" }));
-    return;
-  }
+          { type: "h3", text: "Elliot — Encouragement & Delayed Outcome" },
+          {
+            type: "p",
+            text:
+              "Starts as a restaurant server in the first run. With the player’s encouragement, they eventually publish a novel in later runs; the arc celebrates persistence over commercial success."
+          },
 
-  if (type === "details") {
-    const d = document.createElement("details");
-    d.className = "details";
-    if (block.open) d.setAttribute("open", "");
-    const s = document.createElement("summary");
-    s.textContent = block.title || "More";
-    d.appendChild(s);
+          { type: "h3", text: "Aurelion Inkdeep — Long Life & Letters" },
+          {
+            type: "p",
+            text:
+              "A survivor of hunting who sends the player a letter every year until the global timeline reaches true completion."
+          },
+          { type: "image",
+                src: "assets/img/character1.png",
+                alt: "character",
+          },
+        ]
+      },
 
-    const inner = el("div", { class: "details-body" });
+      {
+        type: "details",
+        title: "Key Systems",
+        open: true,
+        body: [
+          { type: "h3", text: "1) Runner Readability via Two-Lane Spawning" },
+          {
+            type: "p",
+            text:
+              "I built a two-lane probabilistic spawner with interval and pacing controls. Spawning is treated as a readability tool: items are spaced so players can react under speed."
+          },
+          {
+            type: "code",
+            explain: "Spawner pauses during dialogue and stops when the year ends.",
+            code: `void Update()
+      {
+          if (Timer.I != null && Timer.I.IsFinished) return;
+          if (DialogueManager.I != null && DialogueManager.I.IsRunning) return;
 
-    // details 支持 body
-    safeArr(block.body).forEach((b) => renderBlock(inner, b, ctx));
+          _speedFactor += speedFactorIncreasePerSecond * Time.deltaTime;
+          _speedFactor = Mathf.Min(_speedFactor, maxSpeedFactor);
 
-    // 或者 items 快捷 bullets
-    if (Array.isArray(block.items) && block.items.length) {
-      renderBlock(inner, { type: "bullets", items: block.items }, ctx);
+          for (int i = 0; i < entries.Length; i++)
+          {
+              if (Time.time < _nextAt[i]) continue;
+              Spawn(entries[i], laneIndex: i);
+              _nextAt[i] = Time.time + GetNextInterval(entries[i]);
+          }
+      }`
+          },
+
+          { type: "divider" },
+
+          { type: "h3", text: "2) Pickup Pipeline: Damage / Heal / Event" },
+          {
+            type: "p",
+            text:
+              "A single pickup handler applies effects, updates score/health, and increments item counters for the Year-End Summary. This keeps the gameplay loop consistent and testable."
+          },
+          {
+            type: "code",
+            explain: "Centralized collision entry point for item effects and telemetry.",
+            code: `void OnTriggerEnter2D(Collider2D other)
+      {
+          if (!other.CompareTag("Player")) return;
+
+          if (effect == EffectType.Damage) { ApplyDamage(); }
+          else if (effect == EffectType.Heal) { ApplyHeal(); }
+          else if (effect == EffectType.Event) { TriggerEvent(); }
+
+          CountItem(itemID);
+          Destroy(gameObject);
+      }`
+          },
+
+          { type: "divider" },
+
+          { type: "h3", text: "3) Event → Dialogue Gating (with Pause Rules)" },
+          {
+            type: "p",
+            text:
+              "Event pickups first try to trigger the next queued story beat. If none is available, they fall back to an item-specific dialogue asset. While dialogue runs, gameplay is paused to protect narrative clarity."
+          },
+          {
+            type: "code",
+            explain: "Event tries story queue first; otherwise dialogue fallback.",
+            code: `bool triggeredStory = false;
+      if (StoryEventManager.I != null)
+      {
+          triggeredStory = StoryEventManager.I.TryTriggerNextEvent();
+      }
+
+      if (!triggeredStory)
+      {
+          if (DialogueManager.I != null && dialogue != null)
+              DialogueManager.I.StartDialogue(dialogue);
+      }`
+          },
+          {
+            type: "code",
+            explain: "Other systems read IsRunning to pause spawning/scoring during dialogue.",
+            code: `public bool IsRunning { get; private set; }
+
+      public void StartDialogue(DialogueAsset asset)
+      {
+          IsRunning = true;
+          // ... show lines ...
+      }
+
+      public void EndDialogue()
+      {
+          IsRunning = false;
+      }`
+          },
+
+          { type: "divider" },
+
+          { type: "h3", text: "4) Timer-Driven Year End + Results" },
+          {
+            type: "p",
+            text:
+              "Each year ends on a timer, then a results panel displays item counts and final score. The game freezes to shift players from action to reflection—matching the theme."
+          },
+          {
+            type: "code",
+            explain: "Ends the run and shows summary; timeScale=0 for review.",
+            code: `if (time >= duration)
+      {
+          finished = true;
+          resultPanel.SetActive(true);
+
+          item0Text.text = ": " + ScrollPickup2D.count_item0;
+          item1Text.text = ": " + ScrollPickup2D.count_item1;
+
+          finalScoreText.text = "Final Score: " + ScoreUI.I.GetCurrentScore();
+          Time.timeScale = 0f;
+      }`
+          },
+
+          { type: "divider" },
+
+          { type: "h3", text: "5) Persistence (One-Time Events)" },
+          {
+            type: "p",
+            text:
+              "To support the “world remembers” concept, key events are marked as completed so they do not repeat across runs. This is currently implemented as lightweight persistent flags."
+          },
+          {
+            type: "code",
+            explain: "Marks an event as completed so it won't repeat.",
+            code: `if (usePersistentId && !string.IsNullOrEmpty(uniqueId))
+      {
+          string key = "OneTimeEvent_" + uniqueId;
+          PlayerPrefs.SetInt(key, 1);
+      }`
+          }
+        ]
+      },
+
+       {
+          type: "section",
+          title: "Design Decisions",
+          body: [
+            { type: "h3", text: "Why a timed “year”?" },
+            {
+              type: "p",
+              text:
+                "Time creates urgency without violence: it compresses a life into a readable unit and makes each year’s summary feel like memory."
+            },
+
+            { type: "h3", text: "Why pause gameplay during dialogue?" },
+            {
+              type: "p",
+              text:
+                "It protects narrative clarity. When the player is reading, spawning and scoring stop—reducing cognitive overload and making choices feel intentional."
+            },
+
+            { type: "h3", text: "Why persistent world timeline?" },
+            {
+              type: "p",
+              text:
+                "It turns replay into meaning. The player doesn’t just restart—they confront absence, legacy, and long-term consequence."
+            }
+          ]
+        },
+    ],
+
+    // 下面这些继续保留，供 listFrom / codeFrom 使用
+    summary: [
+      "Logline: Play a highly intelligent octopus with only a four-year lifespan. Each year is a timed runner segment—dodge hazards, collect items, and trigger story events.",
+      "Between years you return to a Home Hub for preparation (shop, gifts, relationship progress). After Year 4, endings are determined by stats and bonds.",
+      "Key twist: the player life resets each run, but the world timeline persists—NPCs can permanently leave, and relics remain as keepsakes."
+    ],
+
+    systems: [
+      "4-Year Macro Loop: Run → Year-End Summary → Home Hub → Next Year (x4) → Ending",
+      "Event Items: pickups can trigger queued story dialogues; dialogue pauses gameplay and scoring for readability",
+      "Persistent World: one-time events are tracked across runs; NPC availability changes over the global timeline",
+      "Feedback & Telemetry: time-based score + pickup deltas + end-of-year item counters"
+    ],
+
+    technical: [
+      "Two-lane probabilistic spawner (TwoLaneMultiSpawner in Assets/code/ItemSpawner.cs) with per-item interval/jitter and global speed scaling.",
+      "Centralized pickup handler (ScrollPickup2D in Assets/code/ItemsControler.cs) applies Damage/Heal/Event effects and increments per-item counters.",
+      "Story queue gating (Assets/code/StoryEventManager.cs): triggers the next DialogueAsset only when allowed (cooldown + not during dialogue).",
+      "Dialogue pause gate (Assets/code/DialogueManager.cs): spawner/score/timer check IsRunning to pause updates during dialogue.",
+      "Timer-driven year end (Assets/code/Timer.cs): displays results (item counts + final score) and freezes gameplay via Time.timeScale.",
+      "Simple persistence layer for one-time events using PlayerPrefs keys (e.g., OneTimeEvent_<uniqueId>) to prevent repeating event pickups across runs."
+    ],
+
+    hideLinks: true,
+
+    tags: ["Narrative", "Runner", "Choice & Consequence", "Persistent World", "Unity", "C#"]
+  },
+
+  {
+    id: "pathforms",
+    title: "PathForms",
+    badge: "Research",
+    kicker: "Interactive math visualization • Free-group operations • Graph transformations",
+    role: "Developer (Graph UI + Interaction) • Research Collaboration",
+    tools: ["React", "TypeScript", "D3 (Zoom/Pan)"],
+    shortDescription:
+      "A research-driven interactive visualization that helps learners explore free-group operations and graph-based transformations through step-by-step, puzzle-like interactions.",
+    thumbnail: "assets/img/PathForms-方形模式.png",
+
+
+    gallery: [
+      {
+        src: "assets/img/PathForms-square.png",
+        alt: "Square Cayley graph UI",
+        caption: "Square-layout Cayley graph with selectable vertices/edges."
+      },
+      {
+        src: "assets/img/pathforms.png",
+        alt: "Interaction + tutorial overlay",
+        caption: "Learnability-first UI: guided interaction and readable state changes."
+      }
+    ],
+
+    summary: [
+      "PathForms is an interactive system designed to make abstract algebra (free groups / Nielsen-style transformations) learnable through visualization and guided interaction.",
+      "The project provides multiple ranks (Rank 1–3) and a playable web build for exploration and education.",
+      "My focus: implementing the graph interface and interaction layer—especially a square-layout Cayley-style graph that keeps transformations readable and consistent."
+    ],
+
+    systems: [
+      "Puzzle loop: apply operations step-by-step, observe immediate visual consequences",
+      "Graph interaction: select vertices/edges to inspect state and guide operations",
+      "Square-layout Cayley-style graph view for clarity (grid-like directions and spacing)"
+    ],
+
+    technical: [
+      "Deterministic transformation pipeline to keep tutorial + puzzle validation stable.",
+      "Symbol → direction parsing (e.g., a, a^-1, b, b^-1) to map algebraic words to path geometry.",
+      "Interactive rendering with zoom/pan support; UI state drives highlight + selection styling.",
+      "Lightweight correctness helpers (reduction / inverse) to maintain consistent game states."
+    ],
+
+    codeHighlights: [
+      {
+        title: "Word reduction / cancellation (deterministic)",
+        explain:
+          "Core cancellation logic keeps the state stable for puzzles and step-by-step teaching (adjacent inverse pairs cancel).",
+        code: `function reduceSymbolArray(symbols) {
+    const stack = [];
+    for (let s of symbols) {
+      const top = stack[stack.length - 1];
+      if (top === "a" && s === "a-") stack.pop();
+      else if (top === "a-" && s === "a") stack.pop();
+      else if (top === "b" && s === "b-") stack.pop();
+      else if (top === "b-" && s === "b") stack.pop();
+      else stack.push(s);
     }
+    return stack;
+  }`
+      },
+      {
+        title: "Square-layout Cayley graph generation",
+        explain:
+          "Builds a grid-like Cayley-style tree using consistent up/down/left/right steps to keep layouts readable.",
+        code: `const dirs = [
+    { dir: "up",    dx: 0,  dy: -1 },
+    { dir: "down",  dx: 0,  dy:  1 },
+    { dir: "left",  dx: -1, dy:  0 },
+    { dir: "right", dx: 1,  dy:  0 }
+  ];
 
-    d.appendChild(inner);
-    parent.appendChild(d);
-    return;
-  }
-
-  // 自动复用你现有字段
-  if (type === "listFrom") {
-    const title = block.title || "";
-    const key = block.key || "";
-    const items = safeArr(ctx?.project?.[key]);
-
-    const sec = el("section", { class: "project-section" });
-    if (title) sec.appendChild(el("h2", { text: title }));
-
-    const ul = el("ul");
-    items.forEach((x) => ul.appendChild(el("li", { text: x })));
-    sec.appendChild(ul);
-
-    parent.appendChild(sec);
-    return;
-  }
-
-  if (type === "image") {
-    const figure = el("figure", { class: "pb-figure" });
-
-    const img = el("img", {
-      src: block.src || "",
-      alt: block.alt || "",
-      loading: "lazy"
-    });
-
-    // ✅ 让 pageBlocks 里的图片也能点开 lightbox
-    img.style.cursor = "zoom-in";
-    img.addEventListener("click", () => {
-      // caption 优先，其次 alt
-      openLightbox(block.src, block.caption || block.alt || "");
-    });
-
-    figure.appendChild(img);
-
-    if (block.caption) {
-      figure.appendChild(el("figcaption", { class: "muted small", text: block.caption }));
+  function buildCayleyTree(node, depth, x, y, step) {
+    if (depth === 0) return;
+    node.children = [];
+    for (const d of dirs) {
+      node.children.push({
+        name: node.name + "-" + d.dir + "-" + depth,
+        x: x + d.dx * step,
+        y: y + d.dy * step
+      });
     }
+    node.children.forEach(c => buildCayleyTree(c, depth - 1, c.x, c.y, step * 0.5));
+  }`
+      },
+      {
+        title: "Symbol → direction parsing for path geometry",
+        explain:
+          "Turns algebraic tokens into geometric movement so the player can ‘see’ the word as a path on the graph.",
+        code: `function parsePathBySymbols(symbols) {
+    const directionMap = { a: "up", "a-": "down", b: "right", "b-": "left" };
+    return symbols.map(s => directionMap[s]).filter(Boolean);
+  }`
+      }
+    ],
 
-    parent.appendChild(figure);
-    return;
+    // ✅ 更稳的 links key（避免空格/特殊字符导致渲染器不兼容）
+    links: {
+      projectPage: "https://mineyev.web.illinois.edu/PathForms/",
+      playableBuild: "https://play.math.illinois.edu/PathForms/"
+    },
+
+    tags: ["Visualization", "Research", "Puzzle UX", "React", "TypeScript", "D3"],
+
+    pageBlocks: [
+      {
+        type: "section",
+        title: "Overview",
+        body: [
+          { type: "p", text: "PathForms is a research-driven interactive visualization that helps learners explore free-group ideas through a puzzle-like workflow. The project offers Rank 1–3 experiences and a public playable web build." }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Summary",
+        body: [
+          { type: "bullets", items: [
+            "PathForms visualizes free-group operations and graph-based transformations through guided, puzzle-like interaction.",
+            "Multiple ranks (Rank 1–3) + a public playable build support gradual learning and exploration.",
+            "My focus: implementing the graph UI/interaction layer—especially a square-layout Cayley-style graph for readability."
+          ] }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "My Contribution",
+        body: [
+          { type: "bullets", items: [
+            "Implemented the interactive graph layer (square-layout Cayley-style graph) to make transformations visually readable.",
+            "Built core helpers that support stable, step-by-step transformations (reduction / inverse / parsing).",
+            "Focused on learnability: clear state transitions, selection/highlighting feedback, and deterministic updates."
+          ] }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Key Systems",
+        body: [
+          { type: "bullets", items: [
+            "Puzzle loop: apply operations step-by-step, observe immediate visual consequences",
+            "Graph interaction: select vertices/edges to inspect state and guide operations",
+            "Square-layout Cayley-style graph view for clarity (grid-like directions and spacing)"
+          ] }
+        ]
+      },
+
+      {
+        type: "details",
+        title: "Technical Implementation",
+        open: true,
+        body: [
+          { type: "bullets", items: [
+            "Deterministic transformation pipeline to keep tutorial + puzzle validation stable.",
+            "Symbol → direction parsing (a, a^-1, b, b^-1) to map algebraic words to path geometry.",
+            "UI state drives highlight + selection styling; supports zoom/pan for inspection.",
+            "Lightweight correctness helpers (reduction / inverse) to keep game states consistent."
+          ] }
+        ]
+      },
+
+      {
+        type: "details",
+        title: "Key Systems",
+        open: true,
+        body: [
+          { type: "h3", text: "1) Square-layout Cayley Graph (Readability-first)" },
+          { type: "p", text: "I used a grid-like direction system (up/down/left/right) with consistent spacing so learners can visually track how a word becomes a path. The tree expands recursively while reducing step size to preserve readability at deeper layers." },
+          {
+            type: "code",
+            title: "CayleyTree.tsx — square expansion + spacing (concept excerpt)",
+            explain: "Directional expansion + recursive layout step scaling.",
+            code: `const dirs = [
+      { dir: "up", dx: 0, dy: -1 },
+      { dir: "down", dx: 0, dy: 1 },
+      { dir: "left", dx: -1, dy: 0 },
+      { dir: "right", dx: 1, dy: 0 }
+    ];
+
+    function buildCayleyTree(node, depth, x, y, step){
+      if(depth===0) return;
+      node.children = dirs.map(d => ({
+        name: node.name + "-" + d.dir + "-" + depth,
+        x: x + d.dx * step,
+        y: y + d.dy * step
+      }));
+      node.children.forEach(c => buildCayleyTree(c, depth-1, c.x, c.y, step*0.5));
+    }`
+          },
+
+          { type: "divider" },
+
+          { type: "h3", text: "2) Deterministic Simplification (Cancellation)" },
+          { type: "p", text: "To keep puzzles and tutorials stable, simplification is deterministic: adjacent inverse pairs cancel using a stack-based pass. This prevents inconsistent outcomes and makes the UI easier to explain." },
+          {
+            type: "code",
+            title: "CayleyTree.tsx — reduction pass (concept excerpt)",
+            explain: "Adjacent inverse cancellation via stack pass.",
+            code: `function reduceSymbolArray(symbols){
+      const stack = [];
+      for (let s of symbols){
+        const top = stack[stack.length-1];
+        if(top==="a"  && s==="a-") stack.pop();
+        else if(top==="a-" && s==="a") stack.pop();
+        else if(top==="b"  && s==="b-") stack.pop();
+        else if(top==="b-" && s==="b") stack.pop();
+        else stack.push(s);
+      }
+      return stack;
+    }`
+          },
+
+          { type: "divider" },
+
+          { type: "h3", text: "3) Symbol → Geometry (Path Parsing)" },
+          { type: "p", text: "Tokens map into movement directions so the user experiences an algebraic word as a geometric path. This bridges math meaning and visual intuition." },
+          {
+            type: "code",
+            title: "CayleyTree.tsx — parsePathBySymbols() (concept excerpt)",
+            explain: "Maps tokens to up/down/left/right movement.",
+            code: `function parsePathBySymbols(symbols){
+      const m = { a:"up", "a-":"down", b:"right", "b-":"left" };
+      return symbols.map(s => m[s]).filter(Boolean);
+    }`
+          }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Links",
+        body: [
+          { type: "bullets", items: [
+            "Project Page: https://mineyev.web.illinois.edu/PathForms/",
+            "Playable Build: https://play.math.illinois.edu/PathForms/"
+          ] }
+        ]
+      }
+    ]
+
+  },
+
+  {
+    id: "lockdown-break-escape",
+    title: "LOCKDOWN: Break & Escape",
+    badge: "Board Game",
+    kicker: "Asymmetric 1v3 chase • Capture → Jail → Rescue loop • Key-gated escape finale",
+    role: "Game Designer / Systems Designer",
+    tools: ["Tabletop Prototyping", "Systems Design", "Playtesting", "Rulebook Writing"],
+
+    shortDescription:
+      "A 1v3 asymmetric roll-and-move board game where three Runners coordinate rescues and generate Keys via Jail Breaks to unlock the Gate and escape, while the Pursuer captures and eliminates them.",
+
+    links: {
+    RulebookPDF: "assets/LOCKDOWN_Break_and_Escape_Rulebook_v1_1.pdf"
+    },
+
+    thumbnail: "assets/img/result (1).jpeg",
+
+    videoEmbedUrl: null,
+    localVideo: null,
+
+    // 顶部媒体区：你也可以只放 1-2 张最代表性的图
+    gallery: [
+      {
+        src: "assets/img/result (1).jpeg",
+        alt: "Character card",
+      },
+      {
+        src: "assets/img/result.jpeg",
+        alt: "Character card",
+      },
+      {
+        src: "assets/img/result (3).jpeg",
+        alt: "Action card",
+      },
+      {
+        src: "assets/img/result (2).jpeg",
+        alt: "Action card",
+      },
+    ],
+
+    tags: ["Tabletop", "Game Design", "Asymmetric", "Systems Design", "Prototype", "Rulebook"],
+
+    // ✅ 主体：桌游作品集更适合这种“设计叙事”结构
+    pageBlocks: [
+      {
+        type: "section",
+        title: "Overview",
+        body: [
+          {
+            type: "p",
+            text:
+              "LOCKDOWN: Break & Escape is a 1v3 asymmetric board game built around a high-pressure chase and a cooperative rescue loop. One player is the Pursuer; the other three are Runners who must survive, rescue captured teammates, and escape through a Gate."
+          },
+          {
+            type: "bullets",
+            items: [
+              "Players: 4 (1 Pursuer vs 3 Runners)",
+              "Genre: asymmetric chase / team coordination",
+              "Session target: ~25–40 minutes",
+              "Core loop: chase → capture → jail → rescue → reposition → (repeat) → escape finale"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        type: "section",
+        title: "Design Goals",
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "Create constant tension without removing player agency after capture.",
+              "Make teamwork meaningful: rescues should be a real decision, not a formality.",
+              "Keep rules teachable (simple thresholds, consistent turn steps).",
+              "Give each side a distinct fantasy: pressure & control vs coordination & clutch saves."
+            ]
+          }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "What I Designed",
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "Asymmetric win conditions and pacing (12-round structure).",
+              "Capture → Jail → Rescue escalation (Wanted status makes repeat captures more dangerous).",
+              "A small action deck to create readable ‘swing moments’ (Teleport / Swap / Pup / Jail Break).",
+              "A Key economy to pace the endgame and prevent early rush wins."
+            ]
+          }
+        ]
+      },
+
+
+      {
+        type: "section",
+        title: "Core Mechanics",
+        body: [
+          {
+            type: "h3",
+            text: "Capture, Jail, and Escalation"
+          },
+          {
+            type: "p",
+            text:
+              "Capture is designed as a setback with consequences, not a full stop. Captured Runners are sent to Jail and gain Wanted, increasing the stakes over the course of the match."
+          },
+          {
+            type: "bullets",
+            items: [
+              "Jail creates a shared objective (rescue) that pulls the team into meaningful coordination.",
+              "Wanted escalation keeps late-game pressure high and prevents endless stalling.",
+              "Rescue options support comeback moments while still costing time and positioning."
+            ]
+          },
+
+          {
+            type: "h3",
+            text: "Keys & Gate (Endgame Pacing)"
+          },
+          {
+            type: "p",
+            text:
+              "Escape progress is gated by Keys to ensure the chase/rescue loop matters before the finale."
+          },
+          {
+            type: "bullets",
+            items: [
+              "Keys are generated only by drawing JAIL BREAK (the sole Key source).",
+              "At 2 Keys, the Gate becomes available for escape.",
+              "The second Runner to escape ends the game immediately (team-focused win)."
+            ]
+          },
+          { type: "image",
+                src: "assets/img/lockdown_board_schematic_v2.png",
+                alt: "character",
+          },
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Action Deck Intent",
+        body: [
+          {
+            type: "p",
+            text:
+              "The action deck is intentionally small: each card exists to enable one clear tactical pattern without adding heavy rules overhead."
+          },
+          {
+            type: "bullets",
+            items: [
+              "TELEPORT — breaks local pressure and enables clutch repositioning.",
+              "SWAP — tactical disruption and emergency rescue setup.",
+              "PUP — tempo tool to stall or distract during a critical turn.",
+              "JAIL BREAK — guaranteed rescue + generates 1 Key when drawn."
+            ]
+          }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Play Experience",
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "Mid-game: the board revolves around rescue priorities and risk management.",
+              "Endgame: Keys shift the team from survival to coordinated escape routing.",
+              "The Pursuer’s role is to create time pressure and force suboptimal rescue choices."
+            ]
+          }
+        ]
+      },
+      {
+        type: "section",
+        title: "More Info",
+        body: [
+          {
+            type: "p",
+            text:
+              "For full rules, components, and card text, see the complete rulebook PDF in the link."
+          }
+        ]
+      }
+    ]
   }
 
-  if (type === "code") {
-    const sec = el("div", { class: "code-sample" });
-
-    if (block.title) sec.appendChild(el("h4", { text: block.title }));
-    if (block.explain) sec.appendChild(el("p", { class: "muted small", text: block.explain }));
-
-    const pre = el("pre");
-    const codeEl = el("code");
-    codeEl.textContent = block.code || "";
-    pre.appendChild(codeEl);
-
-    sec.appendChild(pre);
-    parent.appendChild(sec);
-    return;
-  }
-
-
-  if (type === "codeFrom") {
-    const title = block.title || "Code Highlights";
-    const arr = safeArr(ctx?.project?.codeHighlights);
-
-    const sec = el("section", { class: "project-section" });
-    sec.appendChild(el("h2", { text: title }));
-
-    arr.forEach((ch) => {
-      const blockEl = el("div", { class: "code-sample" });
-      blockEl.appendChild(el("h4", { text: ch.title || "" }));
-      if (ch.explain) blockEl.appendChild(el("p", { class: "muted small", text: ch.explain }));
-
-      const pre = el("pre");
-      const codeEl = el("code");
-      codeEl.textContent = ch.code || "";
-      pre.appendChild(codeEl);
-
-      blockEl.appendChild(pre);
-      sec.appendChild(blockEl);
-      sec.appendChild(el("div", { class: "hr" }));
-    });
-
-    parent.appendChild(sec);
-    return;
-  }
-
-  // fallback
-  parent.appendChild(el("p", { text: block.text ? String(block.text) : "" }));
-}
-
-function renderPageBlocksIntoProjectMain() {
-  const blocks = safeArr(project.pageBlocks);
-  if (!blocks.length) return false;
-
-  // ✅ 只隐藏旧卡片（不会把整个 section 干掉）
-  hideClosestCard(summary);
-  hideClosestCard(systems);
-  hideClosestCard(tech);
-  hideClosestCard(code);
-
-  const root = el("div", { id: "pageBlocksRoot" });
-  blocks.forEach((b) => renderBlock(root, b, { project }));
-
-  // ✅ 插入到 mediaBlock 后面（而不是插到 links 前/外层）
-  const mainCol = document.querySelector(".project-main");
-  if (mainCol) {
-    // mediaBlock 在最前面
-    mainCol.appendChild(root);
-    return true;
-  }
-
-  // fallback
-  (document.querySelector("main") || document.body).appendChild(root);
-  return true;
-}
-
-/* ===== Header ===== */
-header.innerHTML = "";
-header.appendChild(
-  el("div", {}, [
-    el("h1", { text: project.title }),
-    el("p", { class: "project-kicker", text: project.kicker || "" }),
-  ])
-);
-
-const meta = el("div", { class: "tags" });
-[
-  project.role ? `Role: ${project.role}` : null,
-  Array.isArray(project.tools) ? `Tools: ${project.tools.join(", ")}` : null,
-]
-  .filter(Boolean)
-  .forEach((x) => meta.appendChild(el("span", { class: "tag", text: x })));
-header.appendChild(meta);
-
-/* ===== Media (Video + Gallery) ===== */
-media.innerHTML = "";
-
-// video embed
-if (project.videoEmbedUrl) {
-  const wrap = el("div", { class: "video-embed" });
-  const iframe = el("iframe", {
-    src: project.videoEmbedUrl,
-    title: `${project.title} 视频`,
-    allow:
-      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
-    allowfullscreen: "true",
-  });
-  wrap.appendChild(iframe);
-  media.appendChild(wrap);
-}
-
-// local video
-if (project.localVideo) {
-  const v = el("video", { class: "video-local" });
-  v.setAttribute("controls", "");
-  v.setAttribute("playsinline", "");
-  v.setAttribute("preload", "metadata");
-  v.innerHTML = `<source src="${project.localVideo.src}" type="${project.localVideo.type}">`;
-  media.appendChild(v);
-}
-
-// gallery
-if (project.gallery?.length) {
-  const grid = el("div", { class: "media-grid" });
-  project.gallery.forEach((g) => {
-    const item = el("div", { class: "media-item" });
-    const img = el("img", { src: g.src, alt: g.alt || "gallery image" });
-    img.addEventListener("click", () => openLightbox(g.src, g.caption || ""));
-    item.appendChild(img);
-    grid.appendChild(item);
-  });
-  media.appendChild(grid);
-}
-
-/* ===== PageBlocks or fallback ===== */
-const usedBlocks = renderPageBlocksIntoProjectMain();
-
-if (!usedBlocks) {
-  // fallback: old fixed rendering
-  summary.innerHTML = "";
-  safeArr(project.summary).forEach((par) => summary.appendChild(el("p", { text: par })));
-
-  systems.innerHTML = "";
-  const ul1 = el("ul");
-  safeArr(project.systems).forEach((s) => ul1.appendChild(el("li", { text: s })));
-  systems.appendChild(ul1);
-
-  tech.innerHTML = "";
-  const ul2 = el("ul");
-  safeArr(project.technical).forEach((s) => ul2.appendChild(el("li", { text: s })));
-  tech.appendChild(ul2);
-
-  code.innerHTML = "";
-  safeArr(project.codeHighlights).forEach((ch) => {
-    const block = el("div", { class: "code-sample" });
-    block.appendChild(el("h4", { text: ch.title || "" }));
-    if (ch.explain) block.appendChild(el("p", { class: "muted small", text: ch.explain }));
-    const pre = el("pre");
-    const codeEl = el("code");
-    codeEl.textContent = ch.code || "";
-    pre.appendChild(codeEl);
-    block.appendChild(pre);
-    block.appendChild(el("div", { class: "hr" }));
-    code.appendChild(block);
-  });
-}
-
-/* ===== Links + tags ===== */
-links.innerHTML = "";
-const linkEntries = Object.entries(project.links || {});
-
-if (linkEntries.length === 0 || project.hideLinks === true) {
-  // 只隐藏 Links 这一段（标题、内容、分隔线），保留 Tags
-  const card = links.closest(".card");
-  if (card) {
-    const linksTitle = card.querySelector('h3'); // 默认这个card里第一个h3就是 Links
-    const hr = card.querySelector('.hr');
-
-    if (linksTitle) linksTitle.style.display = "none";
-    links.style.display = "none";
-    if (hr) hr.style.display = "none";
-  } else {
-    // fallback：至少隐藏 links 容器
-    links.style.display = "none";
-  }
-} else {
-  links.style.display = "";
-  const linkList = el("div", { class: "tags" });
-  linkEntries.forEach(([k, v]) => {
-    linkList.appendChild(
-      el("a", { class: "tag", href: v, text: k, target: "_blank", rel: "noopener" })
-    );
-  });
-  links.appendChild(linkList);
-}
-
-tags.innerHTML = "";
-safeArr(project.tags).forEach((t) => tags.appendChild(el("span", { class: "tag", text: t })));
-
-/* ===== Lightbox ===== */
-const dlg = qs("#lightbox");
-const dlgImg = qs("#lightboxImg");
-const dlgCap = qs("#lightboxCaption");
-const dlgClose = qs("#lightboxClose");
-
-function openLightbox(src, caption) {
-  dlgImg.src = src;
-  dlgCap.textContent = caption || "";
-  if (typeof dlg.showModal === "function") dlg.showModal();
-}
-
-dlgClose?.addEventListener("click", () => dlg.close());
-dlg?.addEventListener("click", (e) => {
-  const rect = dlg.getBoundingClientRect();
-  const isInside =
-    e.clientX >= rect.left &&
-    e.clientX <= rect.right &&
-    e.clientY >= rect.top &&
-    e.clientY <= rect.bottom;
-  if (!isInside) dlg.close();
-});
+];
