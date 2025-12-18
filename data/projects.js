@@ -9,7 +9,7 @@ export const projects = [
     tools: ["Unity", "C#", "TextMeshPro"],
 
     shortDescription:
-      "A healing runner where each life lasts four years. Replays reset the player, but the world timeline persists—choices reshape NPC fates and leave keepsakes.",
+      "Tide of Memory is a runner-driven healing narrative prototype where each “year” is a timed run.In the game Replays reset the player, but the world timeline persists—choices reshape NPC fates and leave keepsakes.",
 
     thumbnail: "assets/img/dialogue.png",
     videoEmbedUrl: "https://www.youtube.com/embed/Dxe_dfzl5zA?si=m199Yu_c2XQjxoPK",
@@ -29,7 +29,7 @@ export const projects = [
           {
             type: "p",
             text:
-              'Four Years of Tide is a runner-driven healing narrative prototype where each “year” is a timed run. Players dodge hazards, collect stat-changing items, and trigger dialogue events—then return home to reflect and prepare. After four years, the ending is evaluated, while the world timeline persists across runs, allowing NPC stories to permanently conclude and leaving keepsakes as proof of shared moments.'
+              'Tide of Memory is a runner-driven healing narrative prototype where each “year” is a timed run. Players dodge hazards, collect stat-changing items, and trigger dialogue events—then return home to reflect and prepare. After four years, the ending is evaluated, while the world timeline persists across runs, allowing NPC stories to permanently conclude and leaving keepsakes as proof of shared moments.'
           }
         ]
       },
@@ -85,7 +85,7 @@ export const projects = [
          },
           { type: "image",
             src: "assets/img/game_flow.png",
-            alt: "Four Years of Tide macro loop diagram",
+            alt: "Tide of Memory macro loop diagram",
           },
         ]
       },
@@ -110,7 +110,7 @@ export const projects = [
       },
       { type: "image",
             src: "assets/img/timeline.png",
-            alt: "Four Years of Tide macro loop diagram",
+            alt: "Tide of Memory macro loop diagram",
       }
     ]
       },
@@ -595,47 +595,198 @@ export const projects = [
 
   },
 
+  {
+    id: "lockdown-break-escape",
+    title: "LOCKDOWN: Break & Escape",
+    badge: "Board Game",
+    kicker: "Asymmetric 1v3 chase • Capture → Jail → Rescue loop • Key-gated escape finale",
+    role: "Game Designer / Systems Designer",
+    tools: ["Tabletop Prototyping", "Systems Design", "Playtesting", "Rulebook Writing"],
 
-  // {
-  //   id: "nlp-calendar",
-  //   title: "NLP Task Calendar",
-  //   badge: "Full-stack",
-  //   kicker: "Natural language → structured events • Mobile-first",
-  //   role: "Full-stack Developer",
-  //   tools: ["FastAPI", "React Native", "SQLite"],
-  //   shortDescription:
-  //     "A calendar app that parses natural language tasks into structured events and syncs the workflow into a mobile-friendly monthly UI.",
-  //   thumbnail: "assets/img/project-calendar.svg",
-  //   videoEmbedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
-  //   localVideo: null,
-  //   gallery: [
-  //     { src: "assets/img/gallery-3.svg", alt: "Calendar view", caption: "Month view UI (placeholder)" }
-  //   ],
-  //   summary: [
-  //     "This project explores building a data flow from a backend database to a mobile calendar UI.",
-  //     "Users create tasks in natural language; the system extracts time/location/participants and stores structured events.",
-  //     "Focus: practical UX and reliable data wiring across the stack."
-  //   ],
-  //   systems: [
-  //     "Event schema: task + participants + time + location",
-  //     "Month view UI: tap date → expand event list",
-  //     "Backend API: CRUD events"
-  //   ],
-  //   technical: [
-  //     "FastAPI endpoints for event creation and retrieval.",
-  //     "React Native calendar UI with expandable day cells and event popups.",
-  //     "Local persistence + predictable state updates."
-  //   ],
-  //   codeHighlights: [
-  //     {
-  //       title: "FastAPI: create event (sketch)",
-  //       explain: "Endpoint accepts parsed fields and stores them for month-view rendering.",
-  //       code: `# (placeholder) @app.post("/events")\nasync def create_event(...):\n    ...`
-  //     }
-  //   ],
-  //   links: {
-  //     GitHub: "https://github.com/yourname/nlp-task-calendar"
-  //   },
-  //   tags: ["Mobile", "FastAPI", "Product Design", "NLP", "Calendar"]
-  // }
+    shortDescription:
+      "A 1v3 asymmetric roll-and-move board game where three Runners coordinate rescues and generate Keys via Jail Breaks to unlock the Gate and escape, while the Pursuer captures and eliminates them.",
+
+    links: {
+    RulebookPDF: "assets/LOCKDOWN_Break_and_Escape_Rulebook_v1_1.pdf"
+    },
+
+    thumbnail: "assets/img/result (1).jpeg",
+
+    videoEmbedUrl: null,
+    localVideo: null,
+
+    // 顶部媒体区：你也可以只放 1-2 张最代表性的图
+    gallery: [
+      {
+        src: "assets/img/result (1).jpeg",
+        alt: "Character card",
+      },
+      {
+        src: "assets/img/result.jpeg",
+        alt: "Character card",
+      },
+      {
+        src: "assets/img/result (3).jpeg",
+        alt: "Action card",
+      },
+      {
+        src: "assets/img/result (2).jpeg",
+        alt: "Action card",
+      },
+    ],
+
+    tags: ["Tabletop", "Game Design", "Asymmetric", "Systems Design", "Prototype", "Rulebook"],
+
+    // ✅ 主体：桌游作品集更适合这种“设计叙事”结构
+    pageBlocks: [
+      {
+        type: "section",
+        title: "Overview",
+        body: [
+          {
+            type: "p",
+            text:
+              "LOCKDOWN: Break & Escape is a 1v3 asymmetric board game built around a high-pressure chase and a cooperative rescue loop. One player is the Pursuer; the other three are Runners who must survive, rescue captured teammates, and escape through a Gate."
+          },
+          {
+            type: "bullets",
+            items: [
+              "Players: 4 (1 Pursuer vs 3 Runners)",
+              "Genre: asymmetric chase / team coordination",
+              "Session target: ~25–40 minutes",
+              "Core loop: chase → capture → jail → rescue → reposition → (repeat) → escape finale"
+            ]
+          }
+        ]
+      },
+
+
+      {
+        type: "section",
+        title: "Design Goals",
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "Create constant tension without removing player agency after capture.",
+              "Make teamwork meaningful: rescues should be a real decision, not a formality.",
+              "Keep rules teachable (simple thresholds, consistent turn steps).",
+              "Give each side a distinct fantasy: pressure & control vs coordination & clutch saves."
+            ]
+          }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "What I Designed",
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "Asymmetric win conditions and pacing (12-round structure).",
+              "Capture → Jail → Rescue escalation (Wanted status makes repeat captures more dangerous).",
+              "A small action deck to create readable ‘swing moments’ (Teleport / Swap / Pup / Jail Break).",
+              "A Key economy to pace the endgame and prevent early rush wins."
+            ]
+          }
+        ]
+      },
+
+
+      {
+        type: "section",
+        title: "Core Mechanics",
+        body: [
+          {
+            type: "h3",
+            text: "Capture, Jail, and Escalation"
+          },
+          {
+            type: "p",
+            text:
+              "Capture is designed as a setback with consequences, not a full stop. Captured Runners are sent to Jail and gain Wanted, increasing the stakes over the course of the match."
+          },
+          {
+            type: "bullets",
+            items: [
+              "Jail creates a shared objective (rescue) that pulls the team into meaningful coordination.",
+              "Wanted escalation keeps late-game pressure high and prevents endless stalling.",
+              "Rescue options support comeback moments while still costing time and positioning."
+            ]
+          },
+
+          {
+            type: "h3",
+            text: "Keys & Gate (Endgame Pacing)"
+          },
+          {
+            type: "p",
+            text:
+              "Escape progress is gated by Keys to ensure the chase/rescue loop matters before the finale."
+          },
+          {
+            type: "bullets",
+            items: [
+              "Keys are generated only by drawing JAIL BREAK (the sole Key source).",
+              "At 2 Keys, the Gate becomes available for escape.",
+              "The second Runner to escape ends the game immediately (team-focused win)."
+            ]
+          },
+          { type: "image",
+                src: "assets/img/lockdown_board_schematic_v2.png",
+                alt: "character",
+          },
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Action Deck Intent",
+        body: [
+          {
+            type: "p",
+            text:
+              "The action deck is intentionally small: each card exists to enable one clear tactical pattern without adding heavy rules overhead."
+          },
+          {
+            type: "bullets",
+            items: [
+              "TELEPORT — breaks local pressure and enables clutch repositioning.",
+              "SWAP — tactical disruption and emergency rescue setup.",
+              "PUP — tempo tool to stall or distract during a critical turn.",
+              "JAIL BREAK — guaranteed rescue + generates 1 Key when drawn."
+            ]
+          }
+        ]
+      },
+
+      {
+        type: "section",
+        title: "Play Experience",
+        body: [
+          {
+            type: "bullets",
+            items: [
+              "Mid-game: the board revolves around rescue priorities and risk management.",
+              "Endgame: Keys shift the team from survival to coordinated escape routing.",
+              "The Pursuer’s role is to create time pressure and force suboptimal rescue choices."
+            ]
+          }
+        ]
+      },
+      {
+        type: "section",
+        title: "More Info",
+        body: [
+          {
+            type: "p",
+            text:
+              "For full rules, components, and card text, see the complete rulebook PDF in the link."
+          }
+        ]
+      }
+    ]
+  }
+
 ];
